@@ -1,0 +1,84 @@
+## Build artifacts
+bin/
+obj/
+out/
+
+## Visual Studio / Rider files
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## .NET user secrets
+**/secrets.json
+*.secrets.json
+
+## Logs
+*.log
+
+## Environment files
+.env
+.env.*.local
+
+## OS generated
+.DS_Store
+Thumbs.db
+
+## Rider plugin
+.idea/
+
+## VSCode
+.vscode/
+*.code-workspace
+
+## NuGet packages (local caches)
+*.nupkg
+*.snupkg
+packages/
+
+## Coverage / testing
+coverage/
+*.coverage
+*.coveragexml
+TestResults/
+.coverage/
+
+## Docker
+docker-compose.override.yml
+.docker/
+*.tar
+
+## Publish output
+publish/
+artifacts/
+
+## gRPC & protobuf intermediate files
+obj/**/Protos/*.cs
+
+## Python proto tools (if you mix HA + .NET)
+**/__pycache__/
+**/*.pyc
+
+## Temp
+tmp/
+temp/
+*.tmp
+*.bak
+
+## ReSharper
+_ReSharper.Caches/
+
+## NCrunch
+_ncrunch*/
+*.ncrunchproject
+
+## MSBuild
+*.cache
+*.config
+
+## macOS files
+*.DS_Store
+.AppleDouble
+.LSOverride

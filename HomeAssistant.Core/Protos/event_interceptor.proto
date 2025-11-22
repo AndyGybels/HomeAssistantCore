@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package hacore;
+
+service EventInterceptor {
+  rpc InterceptEvent (EventMessage) returns (EventResponse);
+}
+
+message EventMessage {
+  string event_type = 1;
+  string entity_id = 2;
+  string json_data = 3;
+  string context_id = 4;
+}
+
+message EventResponse {
+  bool handled = 1;
+}

@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package hacore;
+
+// -------------------------
+// Entity structures
+// -------------------------
+message EntityInfo {
+  string entity_id = 1;
+  string name = 2;
+  string domain = 3;
+  string platform = 4;
+  string unique_id = 5;
+  bool should_poll = 6;
+}
+
+message PlatformInfo {
+  string domain = 1;
+  string platform_name = 2;
+  string config_entry_id = 3;
+}
+
+message ServiceCallInfo {
+  string service = 1;
+  string domain = 2;
+  string json_data = 3;
+}
+
+// -------------------------
+// Requests / Responses
+// -------------------------
+message PlatformSetupRequest {
+  PlatformInfo platform = 1;
+}
+message PlatformSetupResponse {
+  bool ok = 1;
+}
+
+message PlatformResetRequest {
+  PlatformInfo platform = 1;
+}
+message PlatformResetResponse {
+  bool ok = 1;
+}
+
+message EntitiesAddedRequest {
+  PlatformInfo platform = 1;
+  repeated EntityInfo entities = 2;
+}
+message EntitiesAddedResponse {
+  bool ok = 1;
+}
+
+message EntityAddedRequest {
+  PlatformInfo platform = 1;
+  EntityInfo entity = 2;
+}
+message EntityAddedResponse {
+  bool ok = 1;
+}
+
+message EntityRemovedRequest {
+  PlatformInfo platform = 1;
+  string entity_id = 2;
+}
+message EntityRemovedResponse {
+  bool ok = 1;
+}
+
+message EntityUpdateTickRequest {
+  PlatformInfo platform = 1;
+}
+message EntityUpdateTickResponse {
+  bool ok = 1;
+}
+
+message RegisterEntityServiceRequest {
+  PlatformInfo platform = 1;
+  string service_name = 2;
+  string schema_json = 3;
+}
+message RegisterEntityServiceResponse {
+  bool ok = 1;
+}
+
+message ExtractEntitiesRequest {
+  PlatformInfo platform = 1;
+  ServiceCallInfo service_call = 2;
+}
+message ExtractEntitiesResponse {
+  bool ok = 1;
+  repeated string entity_ids = 2;
+}
+
+// -------------------------
+// gRPC contract
+// -------------------------
+service EntityPlatformInterceptor {
+
+  // Platform lifecycle
+  rpc PlatformSetup(PlatformSetupRequest) returns (PlatformSetupResponse);
+  rpc PlatformReset(PlatformResetRequest) returns (PlatformResetResponse);
+
+  // Entities
+  rpc EntitiesAdded(EntitiesAddedRequest) returns (EntitiesAddedResponse);
+  rpc EntityAdded(EntityAddedRequest) returns (EntityAddedResponse);
+  rpc EntityRemoved(EntityRemovedRequest) returns (EntityRemovedResponse);
+
+  // Update loop
+  rpc EntityUpdateTick(EntityUpdateTickRequest) returns (EntityUpdateTickResponse);
+
+  // Services
+  rpc RegisterEntityService(RegisterEntityServiceRequest) returns (RegisterEntityServiceResponse);
+  rpc ExtractEntities(ExtractEntitiesRequest) returns (ExtractEntitiesResponse);
+}

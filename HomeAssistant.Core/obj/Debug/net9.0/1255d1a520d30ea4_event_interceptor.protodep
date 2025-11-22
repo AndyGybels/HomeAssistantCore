@@ -1,0 +1,2 @@
+obj/Debug/net9.0/Protos/EventInterceptor.cs \
+obj/Debug/net9.0/Protos/EventInterceptorGrpc.cs: Protos/event_interceptor.proto

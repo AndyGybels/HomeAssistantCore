@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package hacore;
+
+// ----------- State Write Request -----------
+message StateWriteRequest {
+  string entity_id = 1;
+  string state = 2;
+  string attributes_json = 3;
+  string context_id = 4;
+}
+
+// ----------- State Write Response -----------
+message StateWriteResponse {
+  // If true → .NET vetoes the state change (HA will NOT apply it)
+  bool handled = 1;
+
+  // Optional state override (if .NET wants to change it)
+  string override_state = 2;
+
+  // Optional attribute override
+  string override_attributes_json = 3;
+}
+
+service StateInterceptor {
+  rpc InterceptStateWrite (StateWriteRequest) returns (StateWriteResponse);
+}
